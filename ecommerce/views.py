@@ -17,3 +17,28 @@ def item_view(request, item_id):
 def customer_all_view(request):
     customers = list(Customer.objects.all().values())
     return JsonResponse(customers, safe=False)
+
+def customer_view(request, username):
+    customer = list(Customer.objects.filter(user__username = username).values('user__username', 'user__email', 'address', 'province', 'post_code', 'tel'))
+    return JsonResponse(customer, safe=False)
+
+def product_all_view(request):
+    products = list(Product.objects.all().values())
+    return JsonResponse(products, safe=False)
+
+def product_by_id_view(request, id):
+    product = list(Product.objects.filter(id = id).values())
+    return JsonResponse(product, safe=False)
+
+def order_by_product_id_view(request, id):
+    order = list(Order.objects.filter(productorder__product_id=id).values())
+    return JsonResponse(order, safe=False)
+
+def summarize_view(request):
+    summary = ProductOrder.objects.values('product__name').annotate(
+        total_quantity=models.Sum('quantity'),
+        total_price=models.Sum('total_price')
+    )
+    return JsonResponse(list(summary), safe=False)
+
+

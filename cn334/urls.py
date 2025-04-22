@@ -24,4 +24,9 @@ urlpatterns = [
     path("ecommerce/", ecom_views.ecommerce_index_view),
     path("ecommerce/item/<item_id>", ecom_views.item_view),
     path("ecommerce/customer/all", ecom_views.customer_all_view),
+    path('ecommerce/user/<username>/', ecom_views.customer_view),
+    path('ecommerce/product/all/', ecom_views.product_all_view),
+    path('ecommerce/product/byId/<id>/', ecom_views.product_by_id_view),
+    path('ecommerce/order/byProductId/<id>/', ecom_views.order_by_product_id_view),
+    path('ecommerce/summarize/', ecom_views.summarize_view)
 ]
